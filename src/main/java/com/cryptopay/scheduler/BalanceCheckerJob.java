@@ -8,9 +8,6 @@ import com.cryptopay.service.PaymentService;
 import com.cryptopay.service.PaymentStatusService;
 import com.cryptopay.service.ServiceService;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.JobExecutionContext;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

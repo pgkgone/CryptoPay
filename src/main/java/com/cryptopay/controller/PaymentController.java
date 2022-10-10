@@ -8,9 +8,9 @@ import com.cryptopay.service.PaymentStatusService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/payment")
-@Slf4j
 public class PaymentController {
     private final PaymentService paymentService;
     private final PaymentStatusService paymentStatusService;

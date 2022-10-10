@@ -18,7 +18,8 @@ public class PaymentStatusService {
     private final PaymentStatusRepository paymentStatusRepository;
     public PaymentStatusService(
             @Value("${application.payment.expireInMinutes}") Long expireInMinutes,
-            PaymentStatusRepository paymentStatusRepository) {
+            PaymentStatusRepository paymentStatusRepository
+    ) {
         this.expireInMinutes = expireInMinutes;
         this.paymentStatusRepository = paymentStatusRepository;
     }
