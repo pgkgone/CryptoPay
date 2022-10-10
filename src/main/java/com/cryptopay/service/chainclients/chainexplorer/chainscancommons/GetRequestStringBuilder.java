@@ -1,5 +1,10 @@
 package com.cryptopay.service.chainclients.chainexplorer.chainscancommons;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class GetRequestStringBuilder {
 
     private String address;
@@ -24,12 +29,14 @@ public class GetRequestStringBuilder {
     }
 
     public String build() {
-        return String.format("/api" +
+        return String.format(
+                "/api" +
                 "?module=account" +
                 "&action=tokenbalance" +
                 "&contractaddress=%s" +
                 "&address=%s" +
                 "&tag=latest" +
-                "&apikey=%s", this.contract, this.address, this.apiToken);
+                "&apikey=%s", this.contract, this.address, this.apiToken
+        );
     }
 }

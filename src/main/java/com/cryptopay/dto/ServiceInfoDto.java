@@ -6,9 +6,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
-/**
- * A DTO for the {@link com.cryptopay.model.Service} entity
- */
 @Data
 public class ServiceInfoDto implements Serializable {
     private final Long id;

@@ -2,9 +2,10 @@ package com.cryptopay.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 @Data

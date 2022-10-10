@@ -5,9 +5,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * A DTO for the {@link com.cryptopay.model.ServiceType} entity
- */
 @Data
 public class ServiceTypeDto implements Serializable {
     private final ServiceTypeValue statusValue;

@@ -1,5 +1,6 @@
 package com.cryptopay.service.chainclients.walletgenerator;
 
+import com.cryptopay.enums.WalletFormat;
 import com.cryptopay.exception.WalletGenerationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +15,7 @@ abstract public class AbstractWalletGenerator {
         GeneratedWalletInfo wallet = null;
         try {
             wallet = generateWalletImpl();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WalletGenerationException(String.format("Unable to generate %s wallet", this.getWalletFormat().name()));
         }
         log.info("{} address: {} generated", this.getWalletFormat(), wallet.getAddress());

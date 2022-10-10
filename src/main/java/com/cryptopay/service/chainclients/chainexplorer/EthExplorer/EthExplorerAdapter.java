@@ -1,11 +1,10 @@
 package com.cryptopay.service.chainclients.chainexplorer.EthExplorer;
 
-import com.cryptopay.config.SupportedChain;
+import com.cryptopay.enums.SupportedChain;
 import com.cryptopay.exception.WalletBalanceParsingException;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.cryptopay.service.chainclients.chainexplorer.chainscancommons.AccountBalanceResponse;
 import com.cryptopay.service.chainclients.chainexplorer.chainscancommons.GetRequestStringBuilder;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,19 +16,19 @@ import java.math.BigDecimal;
 public class EthExplorerAdapter extends AbstractChainExplorerAdapter {
 
     public EthExplorerAdapter(
-            @Value("${explorer.ethscan.url}") String explorerUrl,
-            @Value("${explorer.ethscan.apiKey}") String apiKey
+            @Value("${settings.explorer.url.ethscan}") String explorerUrl,
+            @Value("${settings.explorer.apiKey.ethscan}") String apiKey
     ) {
         super(explorerUrl, apiKey);
     }
 
     @Override
     public BigDecimal getBalance(String walletAddress, String contractAddress, Long contractDecimals) {
-        var rq = new GetRequestStringBuilder()
-                .address(walletAddress)
-                .contract(contractAddress)
-                .apiToken(this.explorerApiKey)
-                .build();
+        var rq = new GetRequestStringBuilder(
+                walletAddress,
+                contractAddress,
+                this.explorerApiKey
+        ).build();
         log.info("Make request to {} with address: {}", getChain().toString(), this.explorerUrl + rq);
         var response = this.httpClient.getForObject(
                 this.explorerUrl + rq,

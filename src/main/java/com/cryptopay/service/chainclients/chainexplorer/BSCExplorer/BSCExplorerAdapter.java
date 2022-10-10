@@ -1,6 +1,6 @@
 package com.cryptopay.service.chainclients.chainexplorer.BSCExplorer;
 
-import com.cryptopay.config.SupportedChain;
+import com.cryptopay.enums.SupportedChain;
 import com.cryptopay.exception.WalletBalanceParsingException;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.cryptopay.service.chainclients.chainexplorer.chainscancommons.AccountBalanceResponse;
@@ -16,20 +16,24 @@ import java.math.BigDecimal;
 public class BSCExplorerAdapter extends AbstractChainExplorerAdapter {
 
     public BSCExplorerAdapter(
-            @Value("${explorer.bscscan.url}") String explorerUrl,
-            @Value("${explorer.bscscan.apiKey}") String apiKey
+            @Value("${settings.explorer.url.bscscan}") String explorerUrl,
+            @Value("${settings.explorer.apiKey.bscscan}") String apiKey
     ) {
         super(explorerUrl, apiKey);
     }
 
 
     @Override
-    public BigDecimal getBalance(String walletAddress, String contractAddress, Long contractDecimals) {
-        var rq = new GetRequestStringBuilder()
-                .address(walletAddress)
-                .contract(contractAddress)
-                .apiToken(this.explorerApiKey)
-                .build();
+    public BigDecimal getBalance(
+            String walletAddress,
+            String contractAddress,
+            Long contractDecimals
+    ) {
+        var rq = new GetRequestStringBuilder(
+                walletAddress,
+                contractAddress,
+                this.explorerApiKey
+        ).build();
         log.info("Make request to {} with address: {}", getChain().toString(), this.explorerUrl + rq);
         var response = this.httpClient.getForObject(
                 this.explorerUrl + rq,
@@ -41,6 +45,7 @@ public class BSCExplorerAdapter extends AbstractChainExplorerAdapter {
         log.info(response.toString());
         return new BigDecimal(response.getResult()).movePointLeft(Math.toIntExact(contractDecimals));
     }
+
     @Override
     public SupportedChain getChain() {
         return SupportedChain.bsc;

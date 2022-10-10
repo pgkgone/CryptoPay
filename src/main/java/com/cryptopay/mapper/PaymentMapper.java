@@ -3,11 +3,10 @@ package com.cryptopay.mapper;
 import com.cryptopay.dto.PaymentDto;
 import com.cryptopay.model.Payment;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PaymentMapper {
-    PaymentMapper INSTANCE = Mappers.getMapper(PaymentMapper.class);
+
     @Mapping(source = "cryptoWalletAddress", target = "cryptoWallet.address")
     Payment paymentDtoToPayment(PaymentDto paymentDto);
 

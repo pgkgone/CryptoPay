@@ -1,5 +1,6 @@
 package com.cryptopay.service.chainclients.walletgenerator;
 
+import com.cryptopay.enums.WalletFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.web3j.crypto.ECKeyPair;
@@ -25,6 +26,6 @@ public class ErcWalletGenerator extends AbstractWalletGenerator {
 
     @Override
     public WalletFormat getWalletFormat() {
-        return WalletFormat.ERC;
+        return WalletFormat.erc;
     }
 }

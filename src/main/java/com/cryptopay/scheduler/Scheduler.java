@@ -1,19 +1,18 @@
 package com.cryptopay.scheduler;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
+@RequiredArgsConstructor
 public class Scheduler {
 
     private final BalanceCheckerJob balanceCheckerJob;
 
     private final ServiceExecutionJob serviceExecutionJob;
-
-    public Scheduler(BalanceCheckerJob balanceCheckerJob, ServiceExecutionJob serviceExecutionJob) {
-        this.balanceCheckerJob = balanceCheckerJob;
-        this.serviceExecutionJob = serviceExecutionJob;
-    }
 
     @Scheduled(fixedDelayString = "PT1M")
     public void balanceCheckerJobRun() {
@@ -24,7 +23,6 @@ public class Scheduler {
     public void serviceExecutionJobRun() {
         this.serviceExecutionJob.execute();
     }
-
 
 
 }

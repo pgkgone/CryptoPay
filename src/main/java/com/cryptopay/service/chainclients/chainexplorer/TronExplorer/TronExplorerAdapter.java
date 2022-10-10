@@ -1,6 +1,6 @@
 package com.cryptopay.service.chainclients.chainexplorer.TronExplorer;
 
-import com.cryptopay.config.SupportedChain;
+import com.cryptopay.enums.SupportedChain;
 import com.cryptopay.exception.WalletBalanceParsingException;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Component
 @Slf4j
 public class TronExplorerAdapter extends AbstractChainExplorerAdapter {
 
     public TronExplorerAdapter(
-            @Value("${explorer.trongrid.url}") String explorerUrl,
-            @Value("${explorer.trongrid.apiKey}") String apiKey
+            @Value("${settings.explorer.url.trongrid}") String explorerUrl,
+            @Value("${settings.explorer.apiKey.trongrid}") String apiKey
     ) {
         super(explorerUrl, null);
     }

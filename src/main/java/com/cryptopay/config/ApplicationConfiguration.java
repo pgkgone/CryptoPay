@@ -1,8 +1,9 @@
 package com.cryptopay.config;
 
+import com.cryptopay.enums.SupportedChain;
+import com.cryptopay.enums.WalletFormat;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.cryptopay.service.chainclients.walletgenerator.AbstractWalletGenerator;
-import com.cryptopay.service.chainclients.walletgenerator.WalletFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +17,12 @@ import java.util.Map;
 @Configuration
 @EnableScheduling
 @Slf4j
-public class ApplicationContextConfiguration {
+public class ApplicationConfiguration {
 
     @Bean
-    public Map<WalletFormat, AbstractWalletGenerator> configureMapGenerators(List<AbstractWalletGenerator> walletGenerators) {
+    public Map<WalletFormat, AbstractWalletGenerator> configureMapGenerators(
+            List<AbstractWalletGenerator> walletGenerators
+    ) {
         Map<WalletFormat, AbstractWalletGenerator> map = new HashMap<>();
         for (var generator : walletGenerators) {
             map.put(generator.getWalletFormat(), generator);

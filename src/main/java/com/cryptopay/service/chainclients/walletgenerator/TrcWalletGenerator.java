@@ -1,5 +1,6 @@
 package com.cryptopay.service.chainclients.walletgenerator;
 
+import com.cryptopay.enums.WalletFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.tron.trident.core.key.KeyPair;
@@ -20,6 +21,6 @@ public class TrcWalletGenerator extends AbstractWalletGenerator {
 
     @Override
     public WalletFormat getWalletFormat() {
-        return WalletFormat.TRC;
+        return WalletFormat.trc;
     }
 }

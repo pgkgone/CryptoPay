@@ -1,51 +1,31 @@
 package com.cryptopay.service;
 
-import com.cryptopay.config.SupportedChain;
+import com.cryptopay.enums.SupportedChain;
 import com.cryptopay.dto.CreatePaymentDto;
 import com.cryptopay.mapper.CryptoWalletMapper;
 import com.cryptopay.model.CryptoWallet;
 import com.cryptopay.model.Payment;
 import com.cryptopay.model.PaymentStatusValue;
 import com.cryptopay.repository.*;
-import com.cryptopay.service.chainclients.walletgenerator.WalletFormat;
+import com.cryptopay.enums.WalletFormat;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PaymentService {
-    private PaymentRepository paymentRepository;
-    private ServiceRepository serviceRepository;
-    private CryptoChainRepository cryptoChainRepository;
-    private CryptoCurrencyRepository cryptoCurrencyRepository;
+    private final PaymentRepository paymentRepository;
+    private final ServiceRepository serviceRepository;
+    private final CryptoChainRepository cryptoChainRepository;
+    private final CryptoCurrencyRepository cryptoCurrencyRepository;
+    private final CryptoWalletService cryptoWalletService;
+    private final PaymentStatusService paymentStatusService;
 
-    private CryptoWalletService cryptoWalletService;
-    private PaymentStatusService paymentStatusService;
-
-    private CryptoWalletRepository cryptoWalletRepository;
-
-    public PaymentService(
-            PaymentRepository paymentRepository,
-            ServiceRepository serviceRepository,
-            CryptoChainRepository cryptoChainRepository,
-            CryptoCurrencyRepository cryptoCurrencyRepository,
-            CryptoWalletRepository cryptoWalletRepository,
-            CryptoWalletService cryptoWalletService,
-            PaymentStatusService paymentStatusService
-    ) {
-        this.paymentRepository = paymentRepository;
-        this.serviceRepository = serviceRepository;
-        this.cryptoChainRepository = cryptoChainRepository;
-        this.cryptoCurrencyRepository = cryptoCurrencyRepository;
-        this.paymentStatusService = paymentStatusService;
-        this.cryptoWalletService = cryptoWalletService;
-        this.cryptoWalletRepository = cryptoWalletRepository;
-    }
+    private final CryptoWalletMapper cryptoWalletMapper;
 
     @Transactional
     public Payment createPayment(CreatePaymentDto createPayment) {
@@ -59,7 +39,7 @@ public class PaymentService {
         payment.setCryptoCurrency(cryptoCurrency);
         payment.setService(service);
         payment.setEmail(createPayment.getEmail());
-        var paymentStatus = this.paymentStatusService.createCreateStatus();
+        var paymentStatus = this.paymentStatusService.createPaymentStatus(PaymentStatusValue.Created);
         log.info("payment status: {}", paymentStatus);
         payment.setPaymentStatus(paymentStatus);
         paymentStatus.setPayment(payment);
@@ -84,7 +64,7 @@ public class PaymentService {
     ) {
         var generatedWalletInfo = this.cryptoWalletService
                 .generateWallet(WalletFormat.mapChainToWalletFormat(chain));
-        return CryptoWalletMapper.INSTANCE.generatedWalletToCryptoWallet(generatedWalletInfo);
+        return cryptoWalletMapper.generatedWalletToCryptoWallet(generatedWalletInfo);
     }
 
 }

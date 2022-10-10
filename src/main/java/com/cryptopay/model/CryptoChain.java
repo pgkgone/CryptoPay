@@ -1,10 +1,13 @@
 package com.cryptopay.model;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "crypto_chain")
@@ -25,10 +28,7 @@ public class CryptoChain {
     @Column(name = "shortcut_name", nullable = false, unique = true)
     private String shortcutName;
 
-    @OneToMany(
-            mappedBy = "cryptoChain",
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "cryptoChain", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Collection<Payment> payments = new ArrayList<>();
 

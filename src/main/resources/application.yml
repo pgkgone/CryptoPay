@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cryptopay
+    username: root
+    password: root
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+settings:
+  payment:
+    expireInMinutes: 30
+  explorer:
+    url:
+      trongrid: https://api.trongrid.io
+      bscscan: https://api.bscscan.com
+      ethscan: https://api.etherscan.io
+    apiKey:
+      trongrid:
+      bscscan:
+      ethscan:
