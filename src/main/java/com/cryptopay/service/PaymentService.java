@@ -42,7 +42,6 @@ public class PaymentService {
         var paymentStatus = this.paymentStatusService.createPaymentStatus(PaymentStatusValue.Created);
         log.info("payment status: {}", paymentStatus);
         payment.setPaymentStatus(paymentStatus);
-        paymentStatus.setPayment(payment);
         var cryptoWallet = createWallet(SupportedChain.valueOf(cryptoChain.getShortcutName()));
         payment.setCryptoWallet(cryptoWallet);
         payment = this.paymentRepository.save(payment);

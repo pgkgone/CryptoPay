@@ -2,10 +2,10 @@ package com.cryptopay.service;
 
 import com.cryptopay.enums.SupportedChain;
 import com.cryptopay.enums.SupportedCurrency;
+import com.cryptopay.enums.WalletFormat;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.cryptopay.service.chainclients.walletgenerator.AbstractWalletGenerator;
 import com.cryptopay.service.chainclients.walletgenerator.GeneratedWalletInfo;
-import com.cryptopay.enums.WalletFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,7 +25,7 @@ public class CryptoWalletService {
     private final CryptoCurrencyChainJoinService cryptoCurrencyChainJoinService;
 
     @Transactional(readOnly = true)
-    public BigDecimal getWalletBalance(
+    public Optional<BigDecimal> getWalletBalance(
             SupportedChain chain,
             SupportedCurrency currency,
             String address
@@ -32,11 +33,15 @@ public class CryptoWalletService {
         var cryptoCurrencyChainJoin = this
                 .cryptoCurrencyChainJoinService
                 .getCryptoCurrencyChainJoinByContract(currency, chain);
-        return this.chainExplorers.get(chain).getBalance(
-                address,
-                cryptoCurrencyChainJoin.getContractAddress(),
-                cryptoCurrencyChainJoin.getDecimals()
-        );
+        try {
+            return Optional.of(this.chainExplorers.get(chain).getBalance(
+                    address,
+                    cryptoCurrencyChainJoin.getContractAddress(),
+                    cryptoCurrencyChainJoin.getDecimals()
+            ));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     public GeneratedWalletInfo generateWallet(WalletFormat walletFormat) {

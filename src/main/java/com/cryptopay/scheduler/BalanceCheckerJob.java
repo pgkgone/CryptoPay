@@ -32,7 +32,10 @@ public class BalanceCheckerJob implements Job {
         for (var payment : payments) {
             var walletBalance = this.cryptoWalletService.getWalletBalance(SupportedChain.valueOf(payment.getCryptoChain().getShortcutName()), SupportedCurrency.valueOf(payment.getCryptoCurrency().getShortcutName()), payment.getCryptoWallet().getAddress());
             log.info("account balance is {}", walletBalance);
-            if (walletBalance.compareTo(BigDecimal.valueOf(payment.getService().getCost())) >= 0) {
+            if (
+                    walletBalance.isPresent() &&
+                    walletBalance.get().compareTo(BigDecimal.valueOf(payment.getService().getCost())) >= 0
+            ) {
                 this.paymentStatusService.setPaymentStatus(PaymentStatusValue.Paid, payment);
             } else {
                 log.info("Retrieved latest payment status: {}", payment.getPaymentStatus());
