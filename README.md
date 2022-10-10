@@ -28,7 +28,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 
 <h3>TODO:</h3>
 
-- [ ] Code clenup
+- [ ] Code cleanup
 - [ ] Optimization
 - [ ] Testing
 - [ ] DB encrypting
@@ -37,6 +37,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 - [ ] Example frontend
 - [ ] Documentation generation
 - [ ] Add captcha support
+- [ ] Implement optional user service for reuse of wallets
 
 <h2>Installation and setup</h2>
 <h3>Setup</h3>
