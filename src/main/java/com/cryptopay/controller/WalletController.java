@@ -30,6 +30,6 @@ public class WalletController {
             @PathVariable SupportedCurrency currency,
             @RequestParam String address
     ) {
-        return cryptoWalletService.getWalletBalance(chain, currency, address);
+        return cryptoWalletService.getWalletBalance(chain, currency, address).get();
     }
 }
