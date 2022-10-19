@@ -31,6 +31,9 @@ public class Payment {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "ip", nullable = false)
+    private String ip;
+
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "crypto_wallet_id")
     private CryptoWallet cryptoWallet;

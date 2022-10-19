@@ -1,6 +1,8 @@
 package com.cryptopay.controller;
 
+import com.cryptopay.dto.PaymentWithIdExistsDto;
 import com.cryptopay.exception.ErrorResponse;
+import com.cryptopay.exception.PaymentWithIpExists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,22 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlers {
+
+    @ExceptionHandler(PaymentWithIpExists.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public ResponseEntity<PaymentWithIdExistsDto> paymentWithIpExistsException(
+            PaymentWithIpExists ex,
+            WebRequest request)
+    {
+        log.error(ex.getMessage());
+        return new ResponseEntity<>(
+                new PaymentWithIdExistsDto(
+                        ex.getId(),
+                        ex.getMessage()
+                ),
+                HttpStatus.TOO_MANY_REQUESTS
+        );
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
