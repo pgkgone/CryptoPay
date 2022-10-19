@@ -46,8 +46,8 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 <h3>Setup</h3>
 
 1. This project working with using https://bscscan.com and https://etherscan.io each requires api key to serve requests. 
-   Sing up on them and set api keys in ```src/main/resources/application-constants.properties```
-2. To setup supported blockchains and tokens move in the end of ```databse/migrations/V1__.sql``` and edit insert statements
+   Sing up on them and set api keys in ```src/main/resources/application.yml```
+2. To setup supported blockchains and tokens move in the end of ```databse/migrations/V1__.sql``` and edit insert statements or add new version
 3. This project uses [Trident java](https://developers.tron.network/reference/quickstart) for tron wallet generation. 
    Project contains precompiled library ```${project.basedir}/trident```. You will probably need to compile the library yourself.
 
