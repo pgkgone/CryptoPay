@@ -31,7 +31,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 - [ ] Code cleanup
 - [ ] Optimization
 - [ ] Testing
-- [x] DB encrypting
+- [x] DB wallet private key encrypting
 - [ ] Integration samples 
 - [ ] Admin panel
 - [ ] Example frontend
