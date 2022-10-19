@@ -24,6 +24,8 @@ public class CryptoWalletService {
     private final Map<SupportedChain, AbstractChainExplorerAdapter> chainExplorers;
     private final CryptoCurrencyChainJoinService cryptoCurrencyChainJoinService;
 
+    private final EncryptService encryptService;
+
     @Transactional(readOnly = true)
     public Optional<BigDecimal> getWalletBalance(
             SupportedChain chain,
@@ -45,6 +47,8 @@ public class CryptoWalletService {
     }
 
     public GeneratedWalletInfo generateWallet(WalletFormat walletFormat) {
-        return this.walletGenerators.get(walletFormat).generateWallet();
+        var wallet = this.walletGenerators.get(walletFormat).generateWallet();
+        wallet.setPrivateKey(this.encryptService.encrypt(wallet.getPrivateKey()));
+        return wallet;
     }
 }

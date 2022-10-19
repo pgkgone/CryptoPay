@@ -14,6 +14,7 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 settings:
+  encryptionSeed: a4sfj90dnksn#$kqw
   payment:
     expireInMinutes: 30
   explorer:
