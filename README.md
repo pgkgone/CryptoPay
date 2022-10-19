@@ -52,7 +52,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 <h3>Installation</h3>
 
 1. Clone project
-2. ```cd ${project.basedir}/databse```
+2. ```cd ${project.basedir}/database```
 3. ```docker compose up```
 4. ```cd ${project.basedir}```
 5. ```mvn clean install flyway:migrate spring-boot:run ```
