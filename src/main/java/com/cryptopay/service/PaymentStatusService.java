@@ -62,7 +62,7 @@ public class PaymentStatusService {
         );
         paymentStatus.setPayment(payment);
         payment.setPaymentStatus(paymentStatus);
-        paymentStatusRepository.save(paymentStatus);
+        paymentStatusRepository.saveAndFlush(paymentStatus);
     }
 
     private PaymentStatus createPaymentStatus(

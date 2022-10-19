@@ -20,7 +20,9 @@ public class WalletController {
     private final CryptoWalletService cryptoWalletService;
 
     @GetMapping("/generate/{walletFormat}")
-    public GeneratedWalletInfo generateWallet(@PathVariable WalletFormat walletFormat) {
+    public GeneratedWalletInfo generateWallet(
+            @PathVariable WalletFormat walletFormat
+    ) {
         log.info("generating wallet");
         return cryptoWalletService.generateWallet(walletFormat);
     }

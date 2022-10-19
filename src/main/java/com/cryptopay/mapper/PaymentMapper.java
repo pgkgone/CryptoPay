@@ -4,7 +4,7 @@ import com.cryptopay.dto.PaymentDto;
 import com.cryptopay.model.Payment;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface PaymentMapper {
 
     @Mapping(source = "cryptoWalletAddress", target = "cryptoWallet.address")
