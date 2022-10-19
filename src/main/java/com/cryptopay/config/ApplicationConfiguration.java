@@ -5,6 +5,8 @@ import com.cryptopay.enums.WalletFormat;
 import com.cryptopay.service.chainclients.chainexplorer.AbstractChainExplorerAdapter;
 import com.cryptopay.service.chainclients.walletgenerator.AbstractWalletGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.util.text.AES256TextEncryptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -49,4 +51,15 @@ public class ApplicationConfiguration {
         threadPoolTaskScheduler.setPoolSize(2);
         return threadPoolTaskScheduler;
     }
+
+    @Bean
+    public AES256TextEncryptor aes256TextEncryptor(
+            @Value("${settings.encryptionSeed}") String encryptionSeed
+    ) {
+        AES256TextEncryptor aes256TextEncryptor = new AES256TextEncryptor();
+        aes256TextEncryptor.setPassword(encryptionSeed);
+        return aes256TextEncryptor;
+    }
+
+
 }
