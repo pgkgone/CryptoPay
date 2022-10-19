@@ -37,6 +37,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 - [ ] Example frontend
 - [ ] Documentation generation
 - [ ] Captcha support
+- [ ] Wallet creation request ip tracking
 - [ ] (Optional) User service for reuse of wallets
 
 <h2>Installation and setup</h2>
