@@ -21,7 +21,7 @@ Cryptopay supports main payment blockchains and payment stablecoins. It also all
 - [x] Tron
 - [ ] Solana
 
-<h3>Currently supported tokes</h3>
+<h3>Currently supported tokens</h3>
 
 - [x] USDT
 - [x] USDC
